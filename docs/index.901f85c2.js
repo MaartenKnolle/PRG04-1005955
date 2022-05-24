@@ -556,7 +556,7 @@ function loadCompleted() {
     pixi.stage.addChild(raccoon);
 }
 
-},{"pixi.js":"dsYej","./images/Raccoon_climbing.png":"c3jpA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./images/background.png":"fwQMR"}],"dsYej":[function(require,module,exports) {
+},{"pixi.js":"dsYej","./images/Raccoon_climbing.png":"c3jpA","./images/background.png":"fwQMR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "utils", ()=>_utils
