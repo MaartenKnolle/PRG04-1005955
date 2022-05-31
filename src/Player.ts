@@ -6,6 +6,12 @@ export class Player extends PIXI.Sprite {
 
   constructor(texture: PIXI.Texture) {
     super(texture);
+
+    this.x = screen.width / 2;
+    this.y = screen.height / 2;
+
+    window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
+    window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
   }
   update() {
     this.x += this.xspeed;

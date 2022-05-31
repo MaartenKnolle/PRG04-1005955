@@ -516,47 +516,41 @@ function hmrAcceptRun(bundle, id) {
 },{}],"edeGs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _pixiJs = require("pixi.js");
-// import fishImage from "./images/fish.png";
-// import bubbleImage from "./images/bubble.png";
-// import waterImage from "./images/water.jpg";
 var _raccoonClimbingPng = require("./images/Raccoon_climbing.png");
 var _raccoonClimbingPngDefault = parcelHelpers.interopDefault(_raccoonClimbingPng);
 var _backgroundPng = require("./images/background.png");
 var _backgroundPngDefault = parcelHelpers.interopDefault(_backgroundPng);
-class game {
-    game = new game();
+var _player = require("./Player");
+class Game {
+    constructor(){
+        this.pixi = new _pixiJs.Application({
+            width: screen.width,
+            height: screen.height
+        });
+        document.body.appendChild(this.pixi.view);
+        const background = _pixiJs.Sprite.from(_backgroundPngDefault.default);
+        background.width = this.pixi.screen.width;
+        background.height = this.pixi.screen.height;
+        this.pixi.stage.addChild(background);
+        this.loader = new _pixiJs.Loader();
+        this.loader.add("raccoonImage", _raccoonClimbingPngDefault.default);
+        this.loader.load(()=>this.loadCompleted()
+        );
+    }
+    loadCompleted() {
+        this.raccoon = new _player.Player(this.loader.resources["raccoonImage"].texture);
+        this.pixi.stage.addChild(this.raccoon);
+        console.log(this.raccoon);
+        this.pixi.ticker.add((delta)=>this.update(delta)
+        );
+    }
+    update(delta) {
+        this.raccoon.update();
+    }
 }
-//
-// STAP 1 - maak een pixi canvas
-//
-const pixi = new _pixiJs.Application();
-document.body.appendChild(pixi.view);
-// create a new background sprite
-const background = _pixiJs.Sprite.from(_backgroundPngDefault.default);
-background.width = pixi.screen.width;
-background.height = pixi.screen.height;
-pixi.stage.addChild(background);
-//
-// STAP 2 - preload alle afbeeldingen
-//
-const loader = new _pixiJs.Loader();
-//   .add("fishTexture", fishImage)
-//   .add("bubbleTexture", bubbleImage)
-//   .add("waterTexture", waterImage);
-loader.add("raccoonImage", _raccoonClimbingPngDefault.default);
-loader.load(()=>loadCompleted()
-);
-//
-// STAP 3 - maak een sprite als de afbeeldingen zijn geladen
-//
-function loadCompleted() {
-    //   let fish = new PIXI.Sprite(loader.resources["fishTexture"].texture!);
-    //   pixi.stage.addChild(fish);
-    let raccoon = new _pixiJs.Sprite(loader.resources["raccoonImage"].texture);
-    pixi.stage.addChild(raccoon);
-}
+let game = new Game();
 
-},{"pixi.js":"dsYej","./images/Raccoon_climbing.png":"c3jpA","./images/background.png":"fwQMR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
+},{"pixi.js":"dsYej","./images/background.png":"fwQMR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Player":"8YLWx","./images/Raccoon_climbing.png":"c3jpA"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "utils", ()=>_utils
@@ -37053,8 +37047,8 @@ function __extends(d, b) {
     return AnimatedSprite1;
 }(_sprite.Sprite);
 
-},{"@pixi/core":"7PEF8","@pixi/sprite":"9mbxh","@pixi/ticker":"8ekG7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c3jpA":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('emE5o') + "Raccoon_climbing.4aa293b5.png" + "?" + Date.now();
+},{"@pixi/core":"7PEF8","@pixi/sprite":"9mbxh","@pixi/ticker":"8ekG7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fwQMR":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('emE5o') + "background.84053517.png" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
@@ -37090,8 +37084,68 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"fwQMR":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('emE5o') + "background.84053517.png" + "?" + Date.now();
+},{}],"8YLWx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Player", ()=>Player
+);
+var _pixiJs = require("pixi.js");
+class Player extends _pixiJs.Sprite {
+    xspeed = 0;
+    yspeed = 0;
+    constructor(texture){
+        super(texture);
+        this.x = screen.width / 2;
+        this.y = screen.height / 2;
+        window.addEventListener("keydown", (e)=>this.onKeyDown(e)
+        );
+        window.addEventListener("keyup", (e)=>this.onKeyUp(e)
+        );
+    }
+    update() {
+        this.x += this.xspeed;
+        this.y += this.yspeed;
+    }
+    onKeyDown(e) {
+        switch(e.key.toUpperCase()){
+            case "A":
+            case "ARROWLEFT":
+                this.xspeed = -7;
+                break;
+            case "D":
+            case "ARROWRIGHT":
+                this.xspeed = 7;
+                break;
+            case "W":
+            case "ARROWUP":
+                this.yspeed = -7;
+                break;
+            case "S":
+            case "ARROWDOWN":
+                this.yspeed = 7;
+                break;
+        }
+    }
+    onKeyUp(e) {
+        switch(e.key.toUpperCase()){
+            case "A":
+            case "D":
+            case "ARROWLEFT":
+            case "ARROWRIGHT":
+                this.xspeed = 0;
+                break;
+            case "W":
+            case "S":
+            case "ARROWUP":
+            case "ARROWDOWN":
+                this.yspeed = 0;
+                break;
+        }
+    }
+}
+
+},{"pixi.js":"dsYej","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c3jpA":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('emE5o') + "Raccoon_climbing.4aa293b5.png" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}]},["fpRtI","edeGs"], "edeGs", "parcelRequirea0e5")
 
