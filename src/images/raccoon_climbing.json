@@ -1,0 +1,51 @@
+{"frames": {
+
+"raccoon_climbing_1.png":
+{
+	"frame": {"x":0,"y":0,"w":1024,"h":1024},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":1024},
+	"sourceSize": {"w":1024,"h":1024},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"raccoon_climbing_2.png":
+{
+	"frame": {"x":1024,"y":0,"w":1024,"h":1024},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":1024},
+	"sourceSize": {"w":1024,"h":1024},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"raccoon_climbing_3.png":
+{
+	"frame": {"x":0,"y":1024,"w":1024,"h":1024},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":1024},
+	"sourceSize": {"w":1024,"h":1024},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"raccoon_climbing_4.png":
+{
+	"frame": {"x":1024,"y":1024,"w":1024,"h":1024},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":1024},
+	"sourceSize": {"w":1024,"h":1024},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"animations": {
+	"raccoon_climbing": ["raccoon_climbing_1.png","raccoon_climbing_2.png","raccoon_climbing_3.png","raccoon_climbing_4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "raccoon_climbing.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d517f23ee93a2703c2bb641c9f9d2197:f8c46bda5bf53a9ef7544288ad4fd255:7c63bf3a887cbb5ff61f82efa4ed809a$"
+}
+}

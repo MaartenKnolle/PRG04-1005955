@@ -7,15 +7,35 @@ export class Player extends PIXI.Sprite {
   constructor(texture: PIXI.Texture) {
     super(texture);
 
-    this.x = screen.width / 2;
-    this.y = screen.height / 2;
+    this.x = window.innerWidth / 2;
+    this.y = window.innerHeight / 2;
 
     window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
     window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
   }
   update() {
-    this.x += this.xspeed;
     this.y += this.yspeed;
+    this.x += this.xspeed;
+
+    //check right
+    if (this.x + this.width / 2 >= window.innerWidth) {
+      this.x = window.innerWidth - this.width;
+    }
+
+    //check left
+    if (this.x - 400 <= -400) {
+      this.x = 0 + this.width / 2;
+    }
+
+    //check top
+    if (this.y <= 0) {
+      this.y = 0 + this.height;
+    }
+
+    //check bottom
+    if (this.y >= window.innerHeight - this.height / 2) {
+      this.y = window.innerHeight - this.height;
+    }
   }
 
   onKeyDown(e: KeyboardEvent): void {
