@@ -1,10 +1,20 @@
 import * as PIXI from "pixi.js";
 
 export class UI extends PIXI.Container {
-  graphics = new PIXI.Graphics();
+  private graphics = new PIXI.Graphics();
+  private face = new PIXI.Sprite();
+  private texture: PIXI.Texture;
+  private faceNormal: PIXI.Texture;
+  private faceAngry: PIXI.Texture;
+  private bool = true;
 
-  constructor() {
+  constructor(faceNormal: PIXI.Texture, faceAngry: PIXI.Texture) {
     super();
+    //sprite: PIXI.Sprite;
+    this.texture = faceNormal;
+    this.faceNormal = faceNormal;
+    this.faceAngry = faceAngry;
+
     const style = new PIXI.TextStyle({
       fontFamily: "ARIEL",
       fontSize: 40,
@@ -22,6 +32,27 @@ export class UI extends PIXI.Container {
     this.graphics.drawCircle(200, window.innerHeight - 200, 150);
     this.graphics.endFill();
 
+    this.face.texture = this.texture;
+    this.face.x = 200;
+    this.face.y = window.innerHeight - 200;
+    this.face.anchor.set(0.5);
+    console.log(this.face);
+
     this.addChild(this.graphics);
+
+    this.addChild(this.face);
+
+    // this.addChild(this.sprite);
+  }
+
+  public changeTexture() {
+    this.bool = !this.bool;
+    if (this.bool) {
+      this.face.texture = this.faceNormal;
+      console.log("normal");
+    } else {
+      this.face.texture = this.faceAngry;
+      console.log("angry");
+    }
   }
 }
