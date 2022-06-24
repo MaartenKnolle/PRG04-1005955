@@ -9,11 +9,17 @@ export class Apple extends Item {
   }
   update(delta: number) {
     this.time += delta;
-    if (this.time >= 120) {
+    if (this.time >= 60 * 8) {
+      this.game.removeItem(this);
     }
 
     //check bottom
     if (this.y > 1000) this.game.removeItem(this);
+  }
+
+  public updateScore() {
+    this.game.addScore(5);
+    this.game.removeItem(this);
   }
   //wiggle() {}
 }

@@ -10,4 +10,11 @@ export class Bottle extends Item {
   update(delta: number) {
     this.time += delta;
   }
+
+  public updateScore() {
+    this.game.addScore(-10);
+    console.log(`touch`);
+
+    this.game.removeItem(this);
+  }
 }

@@ -52,7 +52,7 @@ export class Game {
 
   private loadCompleted() {
     this.raccoon = new Player(this.loader.resources["raccoonImage"].texture!);
-    this.raccoon.scale.set(0.25);
+    this.raccoon.scale.set(0.1);
     this.raccoon.anchor.set(0.5, 0.5);
     this.pixi.stage.addChild(this.raccoon);
 
@@ -72,8 +72,12 @@ export class Game {
     this.raccoon.update();
     for (let item of this.items) {
       item.update(delta);
-    }
 
+      this.checkCollision(item);
+    }
+    this.spawnSystem();
+  }
+  private spawnSystem() {
     switch (this.time) {
       case 600:
         console.log(`left`);
@@ -155,6 +159,7 @@ export class Game {
         break;
     }
   }
+
   public removeItem(itemToRemove: Item) {
     this.items = this.items.filter((item: Item) => item != itemToRemove);
     this.pixi.stage.removeChild(itemToRemove);
@@ -168,7 +173,6 @@ export class Game {
       min,
       max
     );
-    item.scale.set(0.2);
     this.items.push(item);
     this.pixi.stage.addChild(item);
   }
@@ -180,7 +184,6 @@ export class Game {
       min,
       max
     );
-    item.scale.set(0.2);
     this.items.push(item);
     this.pixi.stage.addChild(item);
   }
@@ -192,9 +195,17 @@ export class Game {
       min,
       max
     );
-    item.scale.set(0.2);
     this.items.push(item);
     this.pixi.stage.addChild(item);
+  }
+
+  private checkCollision(item: Item) {
+    if (item.hitsPlayer(this.raccoon)) {
+      item.updateScore();
+    }
+  }
+  public addScore(score: number) {
+    this.interface.addScore(score);
   }
 }
 let game = new Game();

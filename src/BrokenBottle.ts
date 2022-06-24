@@ -19,5 +19,11 @@ export class BrokenBottle extends Item {
     //check bottom
     if (this.y > 1000) this.game.removeItem(this);
   }
+
+  public updateScore() {
+    console.log(-10);
+    this.game.addScore(-10);
+    this.game.removeItem(this);
+  }
   //wiggle() {}
 }
